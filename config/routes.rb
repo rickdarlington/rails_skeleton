@@ -1,13 +1,12 @@
 Rails.application.routes.draw do
   devise_for :users, :skip => [:sessions]
   as :user do
-    get 'register' => 'devise/registrations#new', :as => :new_user_registration_path
-    get 'forgotpassword' => 'devise/passwords#new', :as => :new_user_password_path
-    get 'login' => 'devise/sessions#new', :as => :new_user_session
-    post 'login' => 'devise/sessions#create', :as => :user_session
-    get 'logout' => 'devise/sessions#destroy', :as => :destroy_user_session
-    #match 'logout' => 'devise/sessions#destroy', :as => :destroy_user_session,
-    #  :via => Devise.mappings[:user].sign_out_via
+    get '/register' => 'devise/registrations#new', :as => :new_user_registration_path
+    get '/forgotpassword' => 'devise/passwords#new', :as => :new_user_password_path
+    get '/login' => 'devise/sessions#new', :as => :new_user_session
+    post '/login' => 'devise/sessions#create', :as => :user_session
+    get '/logout' => 'devise/sessions#destroy', :as => :destroy_user_session
+    get '/account/update' => 'devise/registrations#edit', :as => :edit_user_registration_path
   end
 
   resources :todos

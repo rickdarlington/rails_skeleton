@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   as :user do
     get '/join' => 'devise/registrations#new', :as => :new_user_registration_path
     get '/forgotpassword' => 'devise/passwords#new', :as => :new_user_password_path
+    post '/forgotpassword' => 'devise/passwords#create', :as => :user_password_path
     get '/login' => 'devise/sessions#new', :as => :new_user_session
     post '/login' => 'devise/sessions#create', :as => :user_session
     get '/logout' => 'devise/sessions#destroy', :as => :destroy_user_session

@@ -1,18 +1,31 @@
 Rails.application.routes.draw do
-  devise_for :users
+  devise_for :users, :skip => [:sessions]
+  as :user do
+    get 'register' => 'devise/registrations#new', :as => :new_user_registration_path
+    get 'forgotpassword' => 'devise/passwords#new', :as => :new_user_password_path
+    get 'login' => 'devise/sessions#new', :as => :new_user_session
+    post 'login' => 'devise/sessions#create', :as => :user_session
+    get 'logout' => 'devise/sessions#destroy', :as => :destroy_user_session
+    #match 'logout' => 'devise/sessions#destroy', :as => :destroy_user_session,
+    #  :via => Devise.mappings[:user].sign_out_via
+  end
+
   resources :todos
 
-  #here's a home page type thingy
-  #root 'welcome'
-
-  #here's an example of a dynamic todo index
   root 'defaults#home'
+  
+#resources :photos
+#default resourceful routes:
 
-  # The priority is based upon order of creation: first created -> highest priority.
-  # See how all your routes lay out with "rake routes".
+#HTTP Verb  Path           Controller#Action  Used for
+#GET        /photos           photos#index    display a list of all photos
+#GET        /photos/new       photos#new      return an HTML form for creating a new photo
+#POST       /photos           photos#create   create a new photo
+#GET        /photos/:id       photos#show     display a specific photo
+#GET        /photos/:id/edit  photos#edit     return an HTML form for editing a photo
+#PATCH/PUT  /photos/:id       photos#update   update a specific photo
+#DELETE     /photos/:id       photos#destroy  delete a specific photo
 
-  # You can have the root of your site routed with "root"
-  # root 'welcome#index'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

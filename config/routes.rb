@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   devise_for :users, :skip => [:sessions]
   as :user do
-    get '/register' => 'devise/registrations#new', :as => :new_user_registration_path
+    get '/join' => 'devise/registrations#new', :as => :new_user_registration_path
     get '/forgotpassword' => 'devise/passwords#new', :as => :new_user_password_path
     get '/login' => 'devise/sessions#new', :as => :new_user_session
     post '/login' => 'devise/sessions#create', :as => :user_session

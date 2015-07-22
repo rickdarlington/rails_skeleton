@@ -18,9 +18,11 @@ Rails.application.routes.draw do
     get '/join', to: 'devise/registrations#new', as: 'new_user_registration'
     post '/join', to: 'devise/registrations#create', as: 'user_registration'
 
+    #reset password
     get '/forgotpassword', to: 'devise/passwords#new', as: 'new_user_password'
     put  '/forgotpassword', to: 'devise/passwords#update', as: 'user_password'
     post '/forgotpassword', to: 'devise/passwords#create'
+    get '/forgotpassword/change', to: 'devise/passwords#edit', as: 'edit_user_password'
 
     # user accounts
     scope '/account' do
@@ -29,10 +31,6 @@ Rails.application.routes.draw do
       #get '/confirm', to: 'devise/confirmations#show', as: 'user_confirmation'
       #get '/confirm/resend', to: 'devise/confirmations#new', as: 'new_user_confirmation'
       #post '/confirm', to: 'devise/confirmations#create'
-
-      # passwords
-      get '/reset-password/change', to: 'devise/passwords#edit', as: 'edit_user_password'
-
 
       # unlocks - locking is currently disabled
       #post '/unlock', to: 'devise/unlocks#create', as: 'user_unlock'

@@ -12,6 +12,7 @@
                     </h3>
                 </div>
                 <div class="panel-body">
+                <% resource.skip_field_error_wrapper = false %>
                   <%= form_for(resource, as: resource_name, url: registration_path(resource_name, html: {role: "form", method: :post})) do |f| %>
                     <div class="field">
                       <%= f.label :email %><br />

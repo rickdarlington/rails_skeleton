@@ -1,18 +1,56 @@
 Rails.application.routes.draw do
-  devise_for :users, :skip => [:sessions]
-  as :user do
-    get '/join' => 'devise/registrations#new', :as => :new_user_registration_path
-    get '/forgotpassword' => 'devise/passwords#new', :as => :new_user_password_path
-    post '/forgotpassword' => 'devise/passwords#create', :as => :user_password_path
-    get '/login' => 'devise/sessions#new', :as => :new_user_session
-    post '/login' => 'devise/sessions#create', :as => :user_session
-    get '/logout' => 'devise/sessions#destroy', :as => :destroy_user_session
-    get '/account/update' => 'devise/registrations#edit', :as => :edit_user_registration_path
+  devise_for :users, skip: [:sessions, :passwords, :confirmations, :registrations, :unlocks]
+  devise_scope :user do
+    
+    #send auth'd users to their application, or unauth'd to default homepage
+    unauthenticated :user do
+      root to: 'defaults#home', as: 'not_signed_up'
+    end
+    authenticated :user do
+      root to: 'todos#index', as: 'applicaiton_context'
+    end
+
+    post '/login', to: 'devise/sessions#create', as: 'user_session'
+    get '/login', to: 'devise/sessions#new', :as => :new_user_session
+    get '/logout', to: 'devise/sessions#destroy', as: 'destroy_user_session'
+
+    # registrations
+    get '/join', to: 'devise/registrations#new', as: 'new_user_registration'
+    post '/join', to: 'devise/registrations#create', as: 'user_registration'
+
+    get '/forgotpassword', to: 'devise/passwords#new', as: 'new_user_password'
+    put  '/forgotpassword', to: 'devise/passwords#update', as: 'user_password'
+    post '/forgotpassword', to: 'devise/passwords#create'
+
+    # user accounts
+    scope '/account' do
+      # confirmation - confirmation is currently disabled
+      #get '/verification', to: 'devise/confirmations#verification_sent', as: 'user_verification_sent'
+      #get '/confirm', to: 'devise/confirmations#show', as: 'user_confirmation'
+      #get '/confirm/resend', to: 'devise/confirmations#new', as: 'new_user_confirmation'
+      #post '/confirm', to: 'devise/confirmations#create'
+
+      # passwords
+      get '/reset-password/change', to: 'devise/passwords#edit', as: 'edit_user_password'
+
+
+      # unlocks - locking is currently disabled
+      #post '/unlock', to: 'devise/unlocks#create', as: 'user_unlock'
+      #get '/unlock/new', to: 'devise/unlocks#new', as: 'new_user_unlock'
+      #get '/unlock', to: 'devise/unlocks#show'
+
+      # settings & cancellation
+      # get '/cancel', to: 'devise/registrations#cancel', as: 'cancel_user_registration'
+      # get '/settings', to: 'devise/registrations#edit', as: 'edit_user_registration'
+      # put '/settings', to: 'devise/registrations#update'
+      # account deletion
+      # delete '', to: 'devise/registrations#destroy'
+    end
+
+  #end devise scope
   end
 
   resources :todos
-
-  root 'defaults#home'
   
 #resources :photos
 #default resourceful routes:

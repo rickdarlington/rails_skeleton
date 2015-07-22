@@ -1,14 +1,20 @@
 <div id="navbar" class="navbar-collapse collapse">
-  <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: {class: "navbar-form navbar-right"}) do |f| %>
-    <div class="form-group">
-      <input type="text" placeholder="Email" class="form-control">
-    </div>
-    <div class="form-group">
-      <input type="password" placeholder="Password" class="form-control">
-    </div>
-    <button type="submit" class="btn btn-primary form-control">Sign in</button>
-    <input type="hidden" name="user[remember_me]" value="1" />
-    <a class="btn btn-primary btn-success form-control" href="/join" style="color:white;">Sign up!</a>
+  
+  <% if user_signed_in? %>
+    <div class="navbar-right navbar-brand">
+      <%= current_user.email %>&nbsp;<a href="/logout">(log out)</a></div>
+  <% else %>
+    <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: {class: "navbar-form navbar-right"}) do |f| %>
+      <div class="form-group">
+        <%= f.email_field :email, autofocus: "true", autocomplete: "off", autocorrect: "off", autocapitalize: "off", class: "form-control", tabindex: "1" %>
+      </div>
+      <div class="form-group">
+        <%= f.password_field :password, autocomplete: "off", autocorrect: "off", autocapitalize: "off", class: "form-control", tabindex: "1" %>
+      </div>
+      <button type="submit" class="btn btn-primary form-control">Sign in</button>
+      <input type="hidden" name="user[remember_me]" value="1" />
+      <a class="btn btn-primary btn-success form-control" href="/join" style="color:white;">Sign up!</a>
+    <% end %>
   <% end %>
     
 </div>

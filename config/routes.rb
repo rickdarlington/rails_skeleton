@@ -44,12 +44,16 @@ Rails.application.routes.draw do
       # account deletion
       # delete '', to: 'devise/registrations#destroy'
     end
-
   #end devise scope
   end
 
   resources :todos
   
+  #info site routes:
+  get '/', to: 'defaults#home'
+  get '/about', to: 'defaults#about'
+  get '/help', to: 'defaults#help'
+
 #resources :photos
 #default resourceful routes:
 

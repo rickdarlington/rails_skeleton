@@ -27,7 +27,7 @@ body {
   margin-bottom: 30px;
   background-color: #fff;
   color: #333;
-  font-family: verdana, arial, helvetica, sans-serif;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-size: 13px;
   line-height: 18px;
 }
@@ -107,4 +107,8 @@ div {
     font-size: 12px;
     list-style: square;
   }
+}
+
+.jumbotron .container p {
+  line-height:125%;
 }

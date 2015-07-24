@@ -1,5 +1,7 @@
 # rails_skeleton
 
+v 0-1-stable: this version is the basic project with just bootstrap scss and devise
+
 This is a Ruby on Rails project skeleton suitable for use as a base for hackathon or prototype type projects.  It uses scss for css preprocessing, bootstrap for styling and Devise for user registration/password reset/user sessions.
 
 ## Installation
